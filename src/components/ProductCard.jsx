@@ -1,19 +1,25 @@
-import React from 'react'
-import styles from '../styles/ProductCard.module.css'
+import React from "react";
 
-const ProductCard = ({ product }) => {
+function ProductCard({ product, addToCart }) {
   return (
-    <div
-      className={`${styles.card} ${!product.inStock ? styles.outOfStock : ''}`}
-    >
-      <h3>{product.name}</h3>
-      <p>Price: {product.price}</p>
-      <p>Status: {product.inStock ? 'In Stock' : 'Out of Stock'}</p>
+    <article className="product-card">
+      <div className="product-image">{product.emoji}</div>
 
-      {/* TODO: Implement Add to Cart button functionality */}
-      <button data-testid={'product-' + product.id}>Add to Cart</button>
-    </div>
-  )
+      <div>
+        <p className="product-category">{product.category}</p>
+        <h3>{product.name}</h3>
+        <p className="price">{product.price}</p>
+      </div>
+
+      <button
+        className="cart-btn"
+        data-testid={`product-${product.id}`}
+        onClick={() => addToCart(product)}
+      >
+        Add to Cart
+      </button>
+    </article>
+  );
 }
 
-export default ProductCard
+export default ProductCard;

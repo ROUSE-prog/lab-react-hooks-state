@@ -1,38 +1,51 @@
-import React, { useState } from 'react'
-import ProductList from './components/ProductList'
-import DarkModeToggle from './components/DarkModeToggle'
-import Cart from './components/Cart'
+import React, { useState } from "react";
+import ProductList from "./components/ProductList";
+import Cart from "./components/Cart";
+import DarkModeToggle from "./components/DarkModeToggle";
+import "./App.css";
 
-const App = () => {
-  // TODO: Implement state for dark mode toggle
+function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [cart, setCart] = useState([]);
+  const [category, setCategory] = useState("All");
 
-  // TODO: Implement state for cart management
-
-  // TODO: Implement state for category filtering
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
 
   return (
-    <div>
-      <h1>🛒 Shopping App</h1>
-      <p>
-        Welcome! Your task is to implement filtering, cart management, and dark
-        mode.
-      </p>
+    <main className={darkMode ? "app dark" : "app"}>
+      <div className="app-shell">
+        <section className="hero">
+          <div>
+            <p className="eyebrow">Fresh Market</p>
 
-      {/* TODO: Render DarkModeToggle and implement dark mode functionality */}
+            <h1>Shop smarter for everyday essentials.</h1>
 
-      {/* TODO: Implement category filter dropdown */}
-      <label>Filter by Category: </label>
-      <select>
-        <option value="all">All</option>
-        <option value="Fruits">Fruits</option>
-        <option value="Dairy">Dairy</option>
-      </select>
+            <p className="subtitle">
+              Browse fresh groceries, filter by category, and build your cart
+              in seconds.
+            </p>
+          </div>
 
-      <ProductList />
+          <DarkModeToggle
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+          />
+        </section>
 
-      {/* TODO: Implement and render Cart component */}
-    </div>
-  )
+        <section className="layout">
+          <ProductList
+            selectedCategory={category}
+            setSelectedCategory={setCategory}
+            addToCart={addToCart}
+          />
+
+          <Cart cart={cart} />
+        </section>
+      </div>
+    </main>
+  );
 }
 
-export default App
+export default App;
